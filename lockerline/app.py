@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .db import init_db, make_engine, make_sessionmaker
 from .handlers import install_handlers
-from .routers import doors
+from .routers import doors, drops, parcels
 from .services.seed import seed
 from .settings import Settings
 
@@ -34,7 +34,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.sessionmaker = make_sessionmaker(engine)
 
     install_handlers(app)
-    for r in (doors.router,):
+    for r in (doors.router,drops.router, parcels.router):
         app.include_router(r)
 
     app.mount("/static", StaticFiles(directory=STATIC), name="static")

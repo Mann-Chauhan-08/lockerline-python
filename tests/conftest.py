@@ -39,3 +39,23 @@ def app(settings, clock):
 def client(app):
     with TestClient(app, raise_server_exceptions=False) as c:
         yield c
+
+@pytest.fixture
+def db(app):
+    """A fresh session factory for looking at rows the API wrote."""
+    return app.state.sessionmaker
+
+
+def drop(client, size="M", flat="302"):
+    r = client.post("/drops", json={"size_class": size, "flat": flat})
+    assert r.status_code == 201, r.text
+    return r.json()
+
+
+def fill(client, size, flat="302"):
+    """Take every free door of one size."""
+    while True:
+        r = client.post("/drops", json={"size_class": size, "flat": flat})
+        if r.status_code == 409:
+            return
+        assert r.status_code == 201, r.text

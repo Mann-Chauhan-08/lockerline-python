@@ -7,7 +7,7 @@ A bank of 48 parcel lockers in an apartment block: couriers drop, residents coll
 ## Progress
 
 - [x] Ticket 1 · Forty-eight doors, and a wall you can look at
-- [ ] Ticket 2 · A courier asks for a door
+- [x] Ticket 2 · A courier asks for a door
 - [ ] Ticket 3 · The code that dies at midnight
 - [ ] Ticket 4 · Three ways to say no
 - [ ] Ticket 5 · The door opens, and the clock stops
@@ -29,3 +29,7 @@ python -m uvicorn lockerline.app:app --port 8080   # the app, on http://127.0.0.
 ## Built with
 
 Python 3.12 · FastAPI · SQLAlchemy · Pydantic · pytest
+
+---
+
+Built by CHAUHAN MANN MUKESHBHAI on [LearnTube Guided Projects](https://guidedprojects.learntube.ai).

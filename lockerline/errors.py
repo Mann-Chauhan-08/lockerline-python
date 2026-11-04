@@ -33,3 +33,14 @@ VALIDATION_PARAMS = (400, "/errors/validation", "Invalid query parameter")      
 NOT_FOUND = (404, "/errors/not-found", "No such resource")                              # no route at this path
 METHOD_NOT_ALLOWED = (405, "/errors/method-not-allowed", "Method not allowed")
 HTTP = "/errors/http"                                                                    # any other framework status
+
+class NoSuchParcel(DomainError):
+    status, type, title = 404, "/errors/no-such-parcel", "No such parcel"
+
+
+class NoSuchFlat(DomainError):
+    status, type, title = 400, "/errors/no-such-flat", "No such flat in this tower"
+
+
+class NoDoorFree(DomainError):
+    status, type, title = 409, "/errors/no-door-free", "No free door of that size"

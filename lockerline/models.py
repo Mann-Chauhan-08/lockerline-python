@@ -1,9 +1,11 @@
 """Tables. A door's state is derived from current_parcel_id; there is deliberately no `state` column on doors.
 One tower here; every row still carries its tower_id, a foreign key to towers, as the ticket's data list names it.
 Seeding stays idempotent through its existence checks, not through composite unique constraints."""
-from sqlalchemy import ForeignKey, Integer, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+from datetime import datetime
+
+from sqlalchemy import DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 class Base(DeclarativeBase):
     pass
@@ -34,3 +36,14 @@ class Resident(Base):
     tower_id: Mapped[int] = mapped_column(ForeignKey("towers.id"))
     flat: Mapped[str] = mapped_column(String(8))
     name: Mapped[str] = mapped_column(String(80))
+
+class Parcel(Base):
+    __tablename__ = "parcels"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    tower_id: Mapped[int] = mapped_column(ForeignKey("towers.id"))
+    flat: Mapped[str] = mapped_column(String(8))
+    size_class: Mapped[str] = mapped_column(String(1))
+    door_id: Mapped[int] = mapped_column(ForeignKey("doors.id"))
+    state: Mapped[str] = mapped_column(String(12))                # holding | collected
+    dropped_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
